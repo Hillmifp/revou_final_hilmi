@@ -13,7 +13,7 @@ const db = mysql.createPool({
   multipleStatements: true,
 });
 
-db.connect((err) => {
+db.getConnection((err) => {
   if (err) {
     console.error("MySQL connection error:", err);
   } else {
