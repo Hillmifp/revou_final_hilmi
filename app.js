@@ -8,7 +8,7 @@ const port = 3000;
 app.use(express.json());
 
 // Use the MySQL connection URI
-const db = mysql.createConnection({
+const db = mysql.createPool({
   uri: "mysql://avnadmin:AVNS_KEUOJt8hmNbC-eGDKyE@mysql-week16-adriantori11-revou.aivencloud.com:28384/revou_project?ssl-mode=REQUIRED",
   multipleStatements: true,
 });
@@ -50,7 +50,7 @@ app.post("/disasters", (req, res) => {
 // Route to get all disasters
 app.get("/disasters", (req, res) => {
   const sql = "SELECT * FROM DISASTERS";
-  db.query(sql, (err, results) => {
+  db.pull(sql, (err, results) => {
     if (err) {
       res
         .status(500)
