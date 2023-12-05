@@ -21,6 +21,9 @@ db.connect((err) => {
   }
 });
 
+app.get("/", (req, res) => {
+  res.status(200).send({ message: "Hilmi Sukses" });
+});
 // Routes for disasters
 app.post("/disasters", (req, res) => {
   const { USER_ID, BEN_DISASTER, BEN_LOCATION, BEN_TIME, BEN_DESCRIPTION } =
