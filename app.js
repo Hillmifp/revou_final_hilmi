@@ -1,5 +1,6 @@
 const express = require("express");
 const mysql = require("mysql2");
+const dayjs = require("dayjs");
 
 const app = express();
 const port = 3000;
@@ -24,16 +25,18 @@ db.connect((err) => {
 app.post("/disasters", (req, res) => {
   const { USER_ID, BEN_DISASTER, BEN_LOCATION, BEN_TIME, BEN_DESCRIPTION } =
     req.body;
+
+  // Assuming BEN_TIME is a string in the format 'YYYY-MM-DDTHH:mm:ss'
+  const formattedBENTime = dayjs(BEN_TIME).format("YYYY-MM-DD HH:mm:ss");
+
   const sql =
-    "INSERT INTO BENCANA (USER_ID, BEN_DISASTER, BEN_LOCATION, BEN_TIME, BEN_DESCRIPTION) VALUES (?, ?, ?, ?, ?)";
+    "INSERT INTO DISASTERS (USER_ID, BEN_DISASTER, BEN_LOCATION, BEN_TIME, BEN_DESCRIPTION) VALUES (?, ?, ?, ?, ?)";
   db.query(
     sql,
-    [USER_ID, BEN_DISASTER, BEN_LOCATION, BEN_TIME, BEN_DESCRIPTION],
+    [USER_ID, BEN_DISASTER, BEN_LOCATION, formattedBENTime, BEN_DESCRIPTION],
     (err, result) => {
       if (err) {
-        res
-          .status(500)
-          .send({ error: "Error inserting disaster into the database" });
+        res.status(500).send({ error: err.message });
       } else {
         res.status(201).send({ id: result.insertId });
       }
@@ -43,7 +46,7 @@ app.post("/disasters", (req, res) => {
 
 // Route to get all disasters
 app.get("/disasters", (req, res) => {
-  const sql = "SELECT * FROM BENCANA";
+  const sql = "SELECT * FROM DISASTERS";
   db.query(sql, (err, results) => {
     if (err) {
       res
@@ -62,7 +65,7 @@ app.put("/disasters/:id", (req, res) => {
     req.body;
 
   const sql =
-    "UPDATE BENCANA SET USER_ID=?, BEN_DISASTER=?, BEN_LOCATION=?, BEN_TIME=?, BEN_DESCRIPTION=? WHERE BEN_ID=?";
+    "UPDATE DISASTERS SET USER_ID=?, BEN_DISASTER=?, BEN_LOCATION=?, BEN_TIME=?, BEN_DESCRIPTION=? WHERE BEN_ID=?";
   db.query(
     sql,
     [
@@ -93,7 +96,7 @@ app.put("/disasters/:id", (req, res) => {
 app.delete("/disasters/:id", (req, res) => {
   const disasterId = req.params.id;
 
-  const sql = "DELETE FROM BENCANA WHERE BEN_ID=?";
+  const sql = "DELETE FROM DISASTERS WHERE BEN_ID=?";
   db.query(sql, [disasterId], (err, result) => {
     if (err) {
       res
