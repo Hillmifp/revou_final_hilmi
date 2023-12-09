@@ -45,13 +45,15 @@ Create a new disaster entry.
 
 jsonCopy code
 
-`{ 
+```
+{ 
 "USER_ID": 1, 
 "BEN_DISASTER": "Earthquake", 
 "BEN_LOCATION": "City A", 
 "BEN_TIME": "2023-12-01T12:00:00", 
 "BEN_DESCRIPTION": "Major earthquake in City A" 
-}`
+}
+```
 
 **Response:
 jsonCopy code
