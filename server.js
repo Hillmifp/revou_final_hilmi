@@ -10,7 +10,7 @@ app.use(express.json());
 // Mount the aggregated router
 app.use("/disasters", routes);
 
-app.get("/", (req, res) => {
+app.get("/status", (req, res) => {
   res.status(200).send({ message: "Hilmi Sukses" });
 });
 
