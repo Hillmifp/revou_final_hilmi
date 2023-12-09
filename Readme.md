@@ -76,7 +76,11 @@ jsonCopy code
 **Response:
 jsonCopy code
 
-`{ "id": 1 }`
+```
+{
+"id": 1
+}
+```
 
 ### `GET /disasters`
 
@@ -86,7 +90,17 @@ Retrieve a list of all disasters.
 
 jsonCopy code
 
-`[ { "BEN_ID": 1, "USER_ID": 1, "BEN_DISASTER": "Earthquake", "BEN_LOCATION": "City A", "BEN_TIME": "2023-12-01T12:00:00", "BEN_DESCRIPTION": "Major earthquake in City A" }, // More disaster entries... ]`
+```
+{
+"BEN_ID": 1,
+"USER_ID": 1,
+"BEN_DISASTER": "Earthquake",
+"BEN_LOCATION": "City A",
+"BEN_TIME": "2023-12-01T12:00:00",
+"BEN_DESCRIPTION": "Major earthquake in City A"
+},
+// More disaster entries...
+```
 
 ### `PUT /disasters/:id`
 
@@ -96,13 +110,25 @@ Update a specific disaster entry.
 
 jsonCopy code
 
-`{ "USER_ID": 1, "BEN_DISASTER": "Updated Earthquake", "BEN_LOCATION": "City B", "BEN_TIME": "2023-12-02T15:30:00", "BEN_DESCRIPTION": "Updated information about the earthquake" }`
+```
+{ 
+"USER_ID": 1,
+"BEN_DISASTER": "Updated Earthquake",
+"BEN_LOCATION": "City B",
+"BEN_TIME": "2023-12-02T15:30:00",
+"BEN_DESCRIPTION": "Updated information about the earthquake"
+}
+```
 
 **Response:**
 
 jsonCopy code
 
-`{ "message": "Disaster updated successfully" }`
+```
+{
+"message": "Disaster updated successfully"
+}
+```
 
 ### `DELETE /disasters/:id`
 
@@ -112,7 +138,11 @@ Delete a specific disaster entry.
 
 jsonCopy code
 
-`{ "message": "Disaster deleted successfully" }`
+```
+{
+"message": "Disaster deleted successfully"
+}
+```
 
 ## Authentication
 
