@@ -10,7 +10,16 @@ The project is organized into the following structure:
 
 bashCopy code
 
-`/src /controllers - disastersController.js /middleware - authenticationMiddleware.js /routes - disastersRoutes.js - server.js`
+```
+/src
+  /controllers
+    - disastersController.js
+  /middleware
+    - authenticationMiddleware.js
+  /routes
+    - disastersRoutes.js
+- server.js
+```
 
 - **controllers**: Contains the disaster controller responsible for handling disaster-related logic.
 - **middleware**: Includes the authentication middleware for verifying JWT tokens.
