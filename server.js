@@ -10,6 +10,10 @@ app.use(express.json());
 // Mount the aggregated router
 app.use("/disasters", routes);
 
+app.get("/", (req, res) => {
+  res.status(200).send({ message: "Hilmi Sukses" });
+});
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
