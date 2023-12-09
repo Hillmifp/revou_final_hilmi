@@ -1,81 +1,157 @@
-# Project Name
-
-Brief description or tagline about your project.
-
-## Table of Contents
-
-- [Introduction](#introduction)
-- [Features](#features)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-- [Usage](#usage)
-- [API Endpoints](#api-endpoints)
-- [Database Schema](#database-schema)
-- [Contributing](#contributing)
-- [License](#license)
+# Disaster Management API
 
 ## Introduction
 
-A brief introduction to your project. What problem does it solve? What is its purpose?
+This project is a Disaster Management API built using Express.js, MySQL, and JWT for authentication. The API allows users to manage information about disasters, including creating, retrieving, updating, and deleting disaster entries.
 
-## Features
+## Project Structure
 
-Highlight key features of your project.
+The project is organized into the following structure:
 
-- Feature 1
-- Feature 2
-- ...
+bashCopy code
 
-## Getting Started
+```
+/src
+  /controllers
+    - disastersController.js
+  /middleware
+    - authenticationMiddleware.js
+  /routes
+    - disastersRoutes.js
+- server.js
+```
 
-Provide instructions on how to set up and run your project locally.
+- **controllers**: Contains the disaster controller responsible for handling disaster-related logic.
+- **middleware**: Includes the authentication middleware for verifying JWT tokens.
+- **routes**: Defines the API routes and connects them to the corresponding controller methods.
+- **server.js**: The main entry point of the application, where the Express server is configured.
 
-### Prerequisites
+## Installation
 
-List any software or dependencies that need to be installed.
+To install the project locally, follow these steps:
 
-### Installation
+bashCopy code
 
-Step-by-step guide on how to install and configure your project.
+```
+# Clone the repository
+git clone <repository-url>
 
-```bash
-# Example installation command
+# Navigate to the project directory
+cd <project-directory>
+
+# Install dependencies
 npm install
 ```
 
 ## Usage
 
-Explain how to use your project. Provide examples if necessary.
+Run the server using the following command:
 
-## API Endpoints
+bashCopy code
 
-Document the available API endpoints and their functionalities.
+`# Run the server npm start`
 
-- `POST /disasters`: Create a new disaster entry.
-- `GET /disasters`: Retrieve all disasters.
-- `PUT /disasters/:id`: Update a disaster by ID.
-- `DELETE /disasters/:id`: Delete a disaster by ID.
-- ...
+The server will be accessible at `http://localhost:3000`.
 
-## Database Schema
+## Endpoints
 
-Provide information about the database schema.
+### `POST /disasters`
 
-- Table 1: BENCANA
-  - Columns: BEN_ID, USER_ID, BEN_DISASTER, BEN_LOCATION, BEN_TIME, BEN_DESCRIPTION
-- Table 2: DOKTER
-  - Columns: DOK_ID, USER_ID, DOK_NAME, DOK_SPEC, DOK_EMAIL, DOK_TELP, DOK_BIO, DOK_NOSTR, DOK_LOCATION, DOK_EXP, POLI_ID
-- ...
+Create a new disaster entry.
+
+**Request:**
+
+jsonCopy code
+
+```
+{ 
+"USER_ID": 1, 
+"BEN_DISASTER": "Earthquake", 
+"BEN_LOCATION": "City A", 
+"BEN_TIME": "2023-12-01T12:00:00", 
+"BEN_DESCRIPTION": "Major earthquake in City A" 
+}
+```
+
+**Response:
+jsonCopy code
+
+```
+{
+"id": 1
+}
+```
+
+### `GET /disasters`
+
+Retrieve a list of all disasters.
+
+**Response:**
+
+jsonCopy code
+
+```
+{
+"BEN_ID": 1,
+"USER_ID": 1,
+"BEN_DISASTER": "Earthquake",
+"BEN_LOCATION": "City A",
+"BEN_TIME": "2023-12-01T12:00:00",
+"BEN_DESCRIPTION": "Major earthquake in City A"
+},
+// More disaster entries...
+```
+
+### `PUT /disasters/:id`
+
+Update a specific disaster entry.
+
+**Request:**
+
+jsonCopy code
+
+```
+{ 
+"USER_ID": 1,
+"BEN_DISASTER": "Updated Earthquake",
+"BEN_LOCATION": "City B",
+"BEN_TIME": "2023-12-02T15:30:00",
+"BEN_DESCRIPTION": "Updated information about the earthquake"
+}
+```
+
+**Response:**
+
+jsonCopy code
+
+```
+{
+"message": "Disaster updated successfully"
+}
+```
+
+### `DELETE /disasters/:id`
+
+Delete a specific disaster entry.
+
+**Response:**
+
+jsonCopy code
+
+```
+{
+"message": "Disaster deleted successfully"
+}
+```
+
+## Authentication
+
+The API uses JWT (JSON Web Token) for authentication. Include the token in the `Authorization` header of your requests.
 
 ## Contributing
 
-Explain how others can contribute to your project. Include guidelines for pull requests, bug reporting, and feature requests.
+Feel free to contribute to this project by submitting issues or creating pull requests. Follow the contribution guidelines in the repository.
 
 ## License
 
-Specify the license under which your project is distributed.
-
-[License Name](https://chat.openai.com/c/link-to-license-file)
-
-
+This project is licensed under the [Your License Name] - see the [LICENSE.md](https://chat.openai.com/c/LICENSE.md) file for details.
