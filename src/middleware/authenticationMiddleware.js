@@ -13,6 +13,7 @@ const authenticationMiddleware = (req, res, next) => {
       return res.status(401).send({ error: "Unauthorized - Invalid token" });
     }
     req.userId = decoded.userId;
+    req.userRole = decoded.role; // Add user role to the request object
     next();
   });
 };

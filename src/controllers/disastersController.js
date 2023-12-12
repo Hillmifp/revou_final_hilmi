@@ -8,16 +8,31 @@ const db = mysql.createPool({
 
 const disastersController = {
   createDisaster: (req, res) => {
-    const { USER_ID, BEN_DISASTER, BEN_LOCATION, BEN_TIME, BEN_DESCRIPTION } =
-      req.body;
+    const {
+      USER_ID,
+      BEN_DISASTER,
+      BEN_LOCATION,
+      BEN_TIME,
+      BEN_DESCRIPTION,
+      BEN_IMAGE,
+      BEN_DONATION,
+    } = req.body;
 
     const formattedBENTime = dayjs(BEN_TIME).format("YYYY-MM-DD HH:mm:ss");
 
     const sql =
-      "INSERT INTO DISASTERS (USER_ID, BEN_DISASTER, BEN_LOCATION, BEN_TIME, BEN_DESCRIPTION) VALUES (?, ?, ?, ?, ?)";
+      "INSERT INTO DISASTERS (USER_ID, BEN_DISASTER, BEN_LOCATION, BEN_TIME, BEN_DESCRIPTION, BEN_IMAGE, BEN_DONATION) VALUES (?, ?, ?, ?, ?, ?, ?)";
     db.query(
       sql,
-      [USER_ID, BEN_DISASTER, BEN_LOCATION, formattedBENTime, BEN_DESCRIPTION],
+      [
+        USER_ID,
+        BEN_DISASTER,
+        BEN_LOCATION,
+        formattedBENTime,
+        BEN_DESCRIPTION,
+        BEN_IMAGE,
+        BEN_DONATION,
+      ],
       (err, result) => {
         if (err) {
           res.status(500).send({ error: err.message });
@@ -41,13 +56,45 @@ const disastersController = {
     });
   },
 
+  getDisasterById: (req, res) => {
+    const disasterId = req.params.id;
+    const sql = "SELECT * FROM DISASTERS WHERE BEN_ID = ?";
+    db.query(sql, [disasterId], (err, result) => {
+      if (err) {
+        res
+          .status(500)
+          .send({ error: "Error fetching disaster from the database" });
+      } else {
+        if (result.length === 0) {
+          res.status(404).send({ error: "Disaster not found" });
+        } else {
+          res.status(200).send(result[0]);
+        }
+      }
+    });
+  },
+
   updateDisaster: (req, res) => {
     const disasterId = req.params.id;
-    const { USER_ID, BEN_DISASTER, BEN_LOCATION, BEN_TIME, BEN_DESCRIPTION } =
-      req.body;
+    const {
+      USER_ID,
+      BEN_DISASTER,
+      BEN_LOCATION,
+      BEN_TIME,
+      BEN_DESCRIPTION,
+      BEN_IMAGE,
+      BEN_DONATION,
+    } = req.body;
+
+    // Check if user has admin role
+    if (req.userRole !== "admin") {
+      return res
+        .status(403)
+        .send({ error: "Permission denied - Admin role required" });
+    }
 
     const sql =
-      "UPDATE DISASTERS SET USER_ID=?, BEN_DISASTER=?, BEN_LOCATION=?, BEN_TIME=?, BEN_DESCRIPTION=? WHERE BEN_ID=?";
+      "UPDATE DISASTERS SET USER_ID=?, BEN_DISASTER=?, BEN_LOCATION=?, BEN_TIME=?, BEN_DESCRIPTION=?, BEN_IMAGE=?, BEN_DONATION=? WHERE BEN_ID=?";
     db.query(
       sql,
       [
@@ -56,6 +103,8 @@ const disastersController = {
         BEN_LOCATION,
         BEN_TIME,
         BEN_DESCRIPTION,
+        BEN_IMAGE,
+        BEN_DONATION,
         disasterId,
       ],
       (err, result) => {
@@ -76,6 +125,13 @@ const disastersController = {
 
   deleteDisaster: (req, res) => {
     const disasterId = req.params.id;
+
+    // Check if user has admin role
+    if (req.userRole !== "admin") {
+      return res
+        .status(403)
+        .send({ error: "Permission denied - Admin role required" });
+    }
 
     const sql = "DELETE FROM DISASTERS WHERE BEN_ID=?";
     db.query(sql, [disasterId], (err, result) => {

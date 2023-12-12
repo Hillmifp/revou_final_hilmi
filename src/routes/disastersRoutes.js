@@ -10,6 +10,11 @@ router.post(
   authenticationMiddleware,
   disastersController.createDisaster
 );
+router.get(
+  "/disasters/:id",
+  authenticationMiddleware,
+  disastersController.getDisasterById
+);
 router.get("/", authenticationMiddleware, disastersController.getAllDisasters);
 router.put(
   "/disasters/:id",
