@@ -5,24 +5,20 @@ const authenticationMiddleware = require("../middleware/authenticationMiddleware
 const router = express.Router();
 
 // Routes for disasters
-router.post(
-  "/disasters",
-  authenticationMiddleware,
-  disastersController.createDisaster
-);
+router.post("/", authenticationMiddleware, disastersController.createDisaster);
 router.get(
-  "/disasters/:id",
+  "/:id",
   authenticationMiddleware,
   disastersController.getDisasterById
 );
 router.get("/", authenticationMiddleware, disastersController.getAllDisasters);
 router.put(
-  "/disasters/:id",
+  "/:id",
   authenticationMiddleware,
   disastersController.updateDisaster
 );
 router.delete(
-  "/disasters/:id",
+  "/:id",
   authenticationMiddleware,
   disastersController.deleteDisaster
 );
