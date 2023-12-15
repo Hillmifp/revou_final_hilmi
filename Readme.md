@@ -1,157 +1,64 @@
-# Disaster Management API
+# Disaster Management System Documentation
+
+## Table of Contents
+
+- [Introduction](https://chat.openai.com/c/2c692a55-d4cf-4aa9-8275-b33004de5cb0#introduction)
+- [Controllers](https://chat.openai.com/c/2c692a55-d4cf-4aa9-8275-b33004de5cb0#controllers)
+  - [disastersController.js](https://chat.openai.com/c/2c692a55-d4cf-4aa9-8275-b33004de5cb0#disasterscontrollerjs)
+- [Middleware](https://chat.openai.com/c/2c692a55-d4cf-4aa9-8275-b33004de5cb0#middleware)
+  - [authenticationMiddleware.js](https://chat.openai.com/c/2c692a55-d4cf-4aa9-8275-b33004de5cb0#authenticationmiddlewarejs)
+- [Routes](https://chat.openai.com/c/2c692a55-d4cf-4aa9-8275-b33004de5cb0#routes)
+  - [disastersRoutes.js](https://chat.openai.com/c/2c692a55-d4cf-4aa9-8275-b33004de5cb0#disastersroutesjs)
+- [App Configuration](https://chat.openai.com/c/2c692a55-d4cf-4aa9-8275-b33004de5cb0#app-configuration)
+  - [app.js](https://chat.openai.com/c/2c692a55-d4cf-4aa9-8275-b33004de5cb0#appjs)
 
 ## Introduction
 
-This project is a Disaster Management API built using Express.js, MySQL, and JWT for authentication. The API allows users to manage information about disasters, including creating, retrieving, updating, and deleting disaster entries.
+This documentation provides an overview of the Disaster Management System codebase. The system allows users to create, retrieve, update, and delete disaster-related information.
 
-## Project Structure
+## Controllers
 
-The project is organized into the following structure:
+### disastersController.js
 
-bashCopy code
+The `disastersController.js` file contains the implementation of CRUD operations related to disasters. It interacts with the database to perform actions such as creating a new disaster, retrieving all disasters, retrieving a specific disaster by ID, updating a disaster, and deleting a disaster.
 
-```
-/src
-  /controllers
-    - disastersController.js
-  /middleware
-    - authenticationMiddleware.js
-  /routes
-    - disastersRoutes.js
-- server.js
-```
+#### Methods
 
-- **controllers**: Contains the disaster controller responsible for handling disaster-related logic.
-- **middleware**: Includes the authentication middleware for verifying JWT tokens.
-- **routes**: Defines the API routes and connects them to the corresponding controller methods.
-- **server.js**: The main entry point of the application, where the Express server is configured.
+- `createDisaster(req, res)`: Creates a new disaster entry in the database based on the information provided in the request body.
+- `getAllDisasters(req, res)`: Retrieves all disasters from the database.
+- `getDisasterById(req, res)`: Retrieves a specific disaster based on the provided disaster ID.
+- `updateDisaster(req, res)`: Updates an existing disaster entry in the database with the information provided in the request body.
+- `deleteDisaster(req, res)`: Deletes a specific disaster from the database based on the provided disaster ID.
 
-## Installation
+## Middleware
 
-To install the project locally, follow these steps:
+### authenticationMiddleware.js
 
-bashCopy code
+The `authenticationMiddleware.js` file contains middleware for user authentication using JSON Web Tokens (JWT). It checks for the presence and validity of a token in the request header, adding user ID and role information to the request object if the token is valid.
 
-```
-# Clone the repository
-git clone <repository-url>
+## Routes
 
-# Navigate to the project directory
-cd <project-directory>
+### disastersRoutes.js
 
-# Install dependencies
-npm install
-```
+The `disastersRoutes.js` file defines the API routes related to disasters. It utilizes the `express` router to handle HTTP requests and connects them to the appropriate controller methods.
 
-## Usage
+#### Routes
 
-Run the server using the following command:
+- `POST /`: Endpoint for creating a new disaster. Requires authentication using the `authenticationMiddleware`.
+- `GET /:id`: Endpoint for retrieving a specific disaster by ID. Requires authentication using the `authenticationMiddleware`.
+- `GET /`: Endpoint for retrieving all disasters. Requires authentication using the `authenticationMiddleware`.
+- `PUT /:id`: Endpoint for updating an existing disaster. Requires authentication using the `authenticationMiddleware`.
+- `DELETE /:id`: Endpoint for deleting a specific disaster by ID. Requires authentication using the `authenticationMiddleware`.
 
-bashCopy code
+## App Configuration
 
-`# Run the server npm start`
+### app.js
 
-The server will be accessible at `http://localhost:3000`.
+The `app.js` file configures the Express application. It sets up the server, mounts the disaster routes, and defines a status endpoint.
 
-## Endpoints
+#### Configuration
 
-### `POST /disasters`
-
-Create a new disaster entry.
-
-**Request:**
-
-jsonCopy code
-
-```
-{ 
-"USER_ID": 1, 
-"BEN_DISASTER": "Earthquake", 
-"BEN_LOCATION": "City A", 
-"BEN_TIME": "2023-12-01T12:00:00", 
-"BEN_DESCRIPTION": "Major earthquake in City A" 
-}
-```
-
-**Response:
-jsonCopy code
-
-```
-{
-"id": 1
-}
-```
-
-### `GET /disasters`
-
-Retrieve a list of all disasters.
-
-**Response:**
-
-jsonCopy code
-
-```
-{
-"BEN_ID": 1,
-"USER_ID": 1,
-"BEN_DISASTER": "Earthquake",
-"BEN_LOCATION": "City A",
-"BEN_TIME": "2023-12-01T12:00:00",
-"BEN_DESCRIPTION": "Major earthquake in City A"
-},
-// More disaster entries...
-```
-
-### `PUT /disasters/:id`
-
-Update a specific disaster entry.
-
-**Request:**
-
-jsonCopy code
-
-```
-{ 
-"USER_ID": 1,
-"BEN_DISASTER": "Updated Earthquake",
-"BEN_LOCATION": "City B",
-"BEN_TIME": "2023-12-02T15:30:00",
-"BEN_DESCRIPTION": "Updated information about the earthquake"
-}
-```
-
-**Response:**
-
-jsonCopy code
-
-```
-{
-"message": "Disaster updated successfully"
-}
-```
-
-### `DELETE /disasters/:id`
-
-Delete a specific disaster entry.
-
-**Response:**
-
-jsonCopy code
-
-```
-{
-"message": "Disaster deleted successfully"
-}
-```
-
-## Authentication
-
-The API uses JWT (JSON Web Token) for authentication. Include the token in the `Authorization` header of your requests.
-
-## Contributing
-
-Feel free to contribute to this project by submitting issues or creating pull requests. Follow the contribution guidelines in the repository.
-
-## License
-
-This project is licensed under the [Your License Name] - see the [LICENSE.md](https://chat.openai.com/c/LICENSE.md) file for details.
+- `express.json()`: Middleware to parse incoming JSON requests.
+- `app.use("/disasters", disastersRoutes)`: Mounts the disaster routes under the "/disasters" path.
+- `app.get("/status", ...)`: Defines an endpoint to check the status of the server.
+- `app.listen(port, ...)`: Starts the server on the specified port.
