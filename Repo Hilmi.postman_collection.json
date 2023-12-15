@@ -17,7 +17,16 @@
 					"name": "Get Disasters",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								""
+							]
+						}
 					},
 					"response": []
 				},
@@ -28,7 +37,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "",
+							"raw": "{\r\n  \"USER_ID\": 1,\r\n  \"DIS_TITLE\": \"Earthquake in City XYZ\",\r\n  \"DIS_ADDRESS\": \"123 Main Street, City XYZ\",\r\n  \"DIS_TIME\": \"2023-12-01T10:30:00\",\r\n  \"DIS_DESCRIPTION\": \"A severe earthquake with a magnitude of 6.5.\",\r\n  \"DIS_IMAGE\": \"earthquake_image.jpg\",\r\n  \"DIS_DONATION\": \"Provide support to affected families\",\r\n  \"DIS_LONGITUDE\": -75.123456,\r\n  \"DIS_LATITUDE\": 40.987654,\r\n  \"DIS_PROVINCE\": \"ABC Province\"\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -72,7 +81,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"USER_ID\": 1,\r\n  \"BEN_DISASTER\": \"Flodd\",\r\n  \"BEN_LOCATION\": \"City Name\",\r\n  \"BEN_TIME\": \"2023-12-05 12:00:00\",\r\n  \"BEN_DESCRIPTION\": \"A brief description of the disaster\"\r\n}",
+							"raw": "{\r\n  \"USER_ID\": 1,\r\n  \"DIS_TITLE\": \"Earthquake in City XYZ\",\r\n  \"DIS_ADDRESS\": \"123 Main Street, City XYZ\",\r\n  \"DIS_TIME\": \"2023-12-01T10:30:00\",\r\n  \"DIS_DESCRIPTION\": \"A severe earthquake with a magnitude of 6.5.\",\r\n  \"DIS_IMAGE\": \"earthquake_image.jpg\",\r\n  \"DIS_DONATION\": \"Provide support to affected families\",\r\n  \"DIS_LONGITUDE\": -75.123456,\r\n  \"DIS_LATITUDE\": 40.987654,\r\n  \"DIS_PROVINCE\": \"ABC Province\"\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -80,13 +89,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{base_url}}/disasters/2",
+							"raw": "{{base_url}}/disasters/5",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"disasters",
-								"2"
+								"5"
 							]
 						}
 					},
