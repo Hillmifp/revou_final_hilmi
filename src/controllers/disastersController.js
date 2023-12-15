@@ -10,28 +10,34 @@ const disastersController = {
   createDisaster: (req, res) => {
     const {
       USER_ID,
-      BEN_DISASTER,
-      BEN_LOCATION,
-      BEN_TIME,
-      BEN_DESCRIPTION,
-      BEN_IMAGE,
-      BEN_DONATION,
+      DIS_TITLE,
+      DIS_ADDRESS,
+      DIS_TIME,
+      DIS_DESCRIPTION,
+      DIS_IMAGE,
+      DIS_DONATION,
+      DIS_LONGITUDE,
+      DIS_LATITUDE,
+      DIS_PROVINCE,
     } = req.body;
 
-    const formattedBENTime = dayjs(BEN_TIME).format("YYYY-MM-DD HH:mm:ss");
+    const formattedDisTime = dayjs(DIS_TIME).format("YYYY-MM-DD HH:mm:ss");
 
     const sql =
-      "INSERT INTO DISASTERS (USER_ID, BEN_DISASTER, BEN_LOCATION, BEN_TIME, BEN_DESCRIPTION, BEN_IMAGE, BEN_DONATION) VALUES (?, ?, ?, ?, ?, ?, ?)";
+      "INSERT INTO DISASTERS (USER_ID, DIS_TITLE, DIS_ADDRESS, DIS_TIME, DIS_DESCRIPTION, DIS_IMAGE, DIS_DONATION, DIS_LONGITUDE, DIS_LATITUDE, DIS_PROVINCE) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     db.query(
       sql,
       [
         USER_ID,
-        BEN_DISASTER,
-        BEN_LOCATION,
-        formattedBENTime,
-        BEN_DESCRIPTION,
-        BEN_IMAGE,
-        BEN_DONATION,
+        DIS_TITLE,
+        DIS_ADDRESS,
+        formattedDisTime,
+        DIS_DESCRIPTION,
+        DIS_IMAGE,
+        DIS_DONATION,
+        DIS_LONGITUDE,
+        DIS_LATITUDE,
+        DIS_PROVINCE,
       ],
       (err, result) => {
         if (err) {
@@ -58,7 +64,7 @@ const disastersController = {
 
   getDisasterById: (req, res) => {
     const disasterId = req.params.id;
-    const sql = "SELECT * FROM DISASTERS WHERE BEN_ID = ?";
+    const sql = "SELECT * FROM DISASTERS WHERE DIS_ID = ?";
     db.query(sql, [disasterId], (err, result) => {
       if (err) {
         res
@@ -78,12 +84,15 @@ const disastersController = {
     const disasterId = req.params.id;
     const {
       USER_ID,
-      BEN_DISASTER,
-      BEN_LOCATION,
-      BEN_TIME,
-      BEN_DESCRIPTION,
-      BEN_IMAGE,
-      BEN_DONATION,
+      DIS_TITLE,
+      DIS_ADDRESS,
+      DIS_TIME,
+      DIS_DESCRIPTION,
+      DIS_IMAGE,
+      DIS_DONATION,
+      DIS_LONGITUDE,
+      DIS_LATITUDE,
+      DIS_PROVINCE,
     } = req.body;
 
     // Check if user has admin role
@@ -94,17 +103,20 @@ const disastersController = {
     }
 
     const sql =
-      "UPDATE DISASTERS SET USER_ID=?, BEN_DISASTER=?, BEN_LOCATION=?, BEN_TIME=?, BEN_DESCRIPTION=?, BEN_IMAGE=?, BEN_DONATION=? WHERE BEN_ID=?";
+      "UPDATE DISASTERS SET USER_ID=?, DIS_TITLE=?, DIS_ADDRESS=?, DIS_TIME=?, DIS_DESCRIPTION=?, DIS_IMAGE=?, DIS_DONATION=?, DIS_LONGITUDE=?, DIS_LATITUDE=?, DIS_PROVINCE=? WHERE DIS_ID=?";
     db.query(
       sql,
       [
         USER_ID,
-        BEN_DISASTER,
-        BEN_LOCATION,
-        BEN_TIME,
-        BEN_DESCRIPTION,
-        BEN_IMAGE,
-        BEN_DONATION,
+        DIS_TITLE,
+        DIS_ADDRESS,
+        DIS_TIME,
+        DIS_DESCRIPTION,
+        DIS_IMAGE,
+        DIS_DONATION,
+        DIS_LONGITUDE,
+        DIS_LATITUDE,
+        DIS_PROVINCE,
         disasterId,
       ],
       (err, result) => {
@@ -133,7 +145,7 @@ const disastersController = {
         .send({ error: "Permission denied - Admin role required" });
     }
 
-    const sql = "DELETE FROM DISASTERS WHERE BEN_ID=?";
+    const sql = "DELETE FROM DISASTERS WHERE DIS_ID=?";
     db.query(sql, [disasterId], (err, result) => {
       if (err) {
         res
