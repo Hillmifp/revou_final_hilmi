@@ -1,0 +1,98 @@
+{
+	"info": {
+		"_postman_id": "fd1b0c2b-61d8-4f1a-93d5-872ba680d349",
+		"name": "Repo Hilmi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29042753"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": []
+		},
+		{
+			"name": "disasters",
+			"item": [
+				{
+					"name": "Get Disasters",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Post Disasters",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/disasters",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"disasters"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Disasters",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/disasters/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"disasters",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Disasters",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"USER_ID\": 1,\r\n  \"BEN_DISASTER\": \"Flodd\",\r\n  \"BEN_LOCATION\": \"City Name\",\r\n  \"BEN_TIME\": \"2023-12-05 12:00:00\",\r\n  \"BEN_DESCRIPTION\": \"A brief description of the disaster\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/disasters/2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"disasters",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
