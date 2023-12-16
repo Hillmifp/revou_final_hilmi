@@ -8,7 +8,48 @@
 	"item": [
 		{
 			"name": "auth",
-			"item": []
+			"item": [
+				{
+					"name": "Login",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_email\": \"test1@dev.com\",\r\n    \"user_pass\": \"test123\"\r\n}"
+						},
+						"url": {
+							"raw": "revou-final-najmy.vercel.app/api/v1/auth/login",
+							"host": [
+								"revou-final-najmy",
+								"vercel",
+								"app"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "disasters",
@@ -16,15 +57,25 @@
 				{
 					"name": "Get Disasters",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QxQGRldi5jb20iLCJpZCI6NTEsInJvbGUiOjEsImlhdCI6MTcwMjcxMDg3NSwiZXhwIjoxNzAyNzE0NDc1fQ.cOWr0zz5WTm9f6dolY5VUwOGbuPI-zqIBIn8-DErK-E",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base_url}}/",
+							"raw": "{{base_url}}/disasters",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
-								""
+								"disasters"
 							]
 						}
 					},
@@ -32,7 +83,20 @@
 				},
 				{
 					"name": "Post Disasters",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QxQGRldi5jb20iLCJpZCI6NTEsInJvbGUiOjEsImlhdCI6MTcwMjcxMDg3NSwiZXhwIjoxNzAyNzE0NDc1fQ.cOWr0zz5WTm9f6dolY5VUwOGbuPI-zqIBIn8-DErK-E",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -58,17 +122,42 @@
 				},
 				{
 					"name": "Delete Disasters",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QxQGRldi5jb20iLCJpZCI6NTEsInJvbGUiOjEsImlhdCI6MTcwMjcxMDg3NSwiZXhwIjoxNzAyNzE0NDc1fQ.cOWr0zz5WTm9f6dolY5VUwOGbuPI-zqIBIn8-DErK-E",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"USER_ID\": 51\r\n}"
+						},
 						"url": {
-							"raw": "{{base_url}}/disasters/1",
+							"raw": "{{base_url}}/disasters/6",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
 								"disasters",
-								"1"
+								"6"
 							]
 						}
 					},

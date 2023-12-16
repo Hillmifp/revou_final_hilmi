@@ -1,5 +1,6 @@
 const mysql = require("mysql2");
 const dayjs = require("dayjs");
+const jwt = require("jsonwebtoken");
 
 const db = mysql.createPool({
   uri: "mysql://avnadmin:AVNS_KEUOJt8hmNbC-eGDKyE@mysql-week16-adriantori11-revou.aivencloud.com:28384/revou_project?ssl-mode=REQUIRED",
@@ -80,6 +81,20 @@ const disastersController = {
     });
   },
 
+  getDisastersByProvince: (req, res) => {
+    const province = req.params.province;
+    const sql = "SELECT * FROM DISASTERS WHERE DIS_PROVINCE = ?";
+    db.query(sql, [province], (err, results) => {
+      if (err) {
+        res
+          .status(500)
+          .send({ error: "Error fetching disasters from the database" });
+      } else {
+        res.status(200).send(results);
+      }
+    });
+  },
+
   updateDisaster: (req, res) => {
     const disasterId = req.params.id;
     const {
@@ -95,11 +110,20 @@ const disastersController = {
       DIS_PROVINCE,
     } = req.body;
 
-    // Check if user has admin role
-    if (req.userRole !== "admin") {
-      return res
-        .status(403)
-        .send({ error: "Permission denied - Admin role required" });
+    // Check if user has admin role or user_id === current user_id
+    // Decode token from auth bearer
+    const token = req.header("Authorization");
+    const jwtToken = token.split(" ");
+    const decodedToken = jwt.decode(jwtToken[1], { complete: true });
+    console.log(token, decodedToken);
+    const currentUserId = decodedToken ? decodedToken.payload.id : null;
+    const currentUserRole = decodedToken ? decodedToken.payload.role : null;
+    console.log(currentUserId, currentUserRole);
+    // Check if user has admin role or user_id === current user_id
+    if (currentUserRole !== 3 && currentUserId !== USER_ID) {
+      return res.status(403).send({
+        error: "Permission denied - Admin role or matching user_id required",
+      });
     }
 
     const sql =
@@ -137,12 +161,23 @@ const disastersController = {
 
   deleteDisaster: (req, res) => {
     const disasterId = req.params.id;
+    const { USER_ID } = req.body;
 
-    // Check if user has admin role
-    if (req.userRole !== "admin") {
-      return res
-        .status(403)
-        .send({ error: "Permission denied - Admin role required" });
+    // Check if user has admin role or user_id === current user_id
+    // Decode token from auth bearer
+    const token = req.header("Authorization");
+    const jwtToken = token.split(" ");
+    const decodedToken = jwt.decode(jwtToken[1], { complete: true });
+    console.log(token, decodedToken);
+    const currentUserId = decodedToken ? decodedToken.payload.id : null;
+    const currentUserRole = decodedToken ? decodedToken.payload.role : null;
+    console.log(currentUserId, currentUserRole, USER_ID, req.body);
+
+    // Check if user has admin role or user_id === current user_id
+    if (currentUserRole !== 3 && currentUserId !== USER_ID) {
+      return res.status(403).send({
+        error: "Permission denied - Admin role or matching user_id required",
+      });
     }
 
     const sql = "DELETE FROM DISASTERS WHERE DIS_ID=?";

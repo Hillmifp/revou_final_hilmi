@@ -7,6 +7,11 @@ const router = express.Router();
 // Routes for disasters
 router.post("/", authenticationMiddleware, disastersController.createDisaster);
 router.get(
+  "/province/:province",
+  authenticationMiddleware,
+  disastersController.getDisastersByProvince
+);
+router.get(
   "/:id",
   authenticationMiddleware,
   disastersController.getDisasterById
